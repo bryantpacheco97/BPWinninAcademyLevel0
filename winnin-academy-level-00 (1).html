@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winnin Academy — Level 00: Foundations</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<!-- Century Gothic is a system font, no external import needed -->
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --wp:#7F77DD;--wpd:#3C3489;--wpl:#EEEDFE;
+  --dark:#0E0D1A;--mid:#1C1A2E;--surf:#1E1C30;--surf2:#252340;--brd:rgba(127,119,221,0.18);
+  --txt:#F0EFF8;--mut:rgba(240,239,248,0.52);--acc:#A09AF0;--acc2:#C8C4F8;
+  --syne:'Century Gothic','AppleGothic','Gill Sans',Futura,sans-serif;--dm:'Century Gothic','AppleGothic','Gill Sans',Futura,sans-serif;
+}
+html,body{min-height:100vh;background:var(--dark);color:var(--txt);font-family:var(--dm);font-size:14px}
+.page-wrap{max-width:780px;margin:0 auto;padding:0 1rem 4rem}
+
+/* HERO */
+.hero{padding:2.5rem 2rem 2rem;position:relative;overflow:hidden;border-bottom:0.5px solid var(--brd)}
+.acad-lbl{font-family:var(--syne);font-size:11px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--wp);margin-bottom:0.9rem;display:flex;align-items:center;gap:8px}
+.acad-lbl::before{content:'';display:inline-block;width:18px;height:1px;background:var(--wp)}
+.hero h1{font-family:var(--syne);font-size:2.8rem;font-weight:700;letter-spacing:0.04em;line-height:1.1;color:var(--txt);margin-bottom:0.6rem;position:relative;z-index:1}
+.hero h1 span{color:var(--acc)}
+.hero p{font-size:14px;color:var(--mut);line-height:1.65;max-width:500px;font-weight:300;position:relative;z-index:1}
+.pills{margin-top:1.25rem;display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:1}
+.pill{font-size:11px;font-family:var(--syne);font-weight:500;letter-spacing:0.06em;color:var(--mut);background:rgba(127,119,221,0.1);border:0.5px solid var(--brd);border-radius:20px;padding:4px 12px}
+.hero-canvas{position:absolute;top:0;right:0;width:320px;height:180px;opacity:0.6}
+
+/* QUOTE */
+.quote{margin:1.75rem 2rem;padding:1.25rem 1.5rem;border-left:2px solid var(--wp);background:rgba(127,119,221,0.05);border-radius:0 8px 8px 0}
+.quote p{font-size:13px;font-style:italic;color:var(--mut);line-height:1.7;font-weight:300}
+.quote cite{display:block;margin-top:0.6rem;font-size:11px;font-family:var(--syne);font-weight:600;letter-spacing:0.1em;color:var(--wp);font-style:normal}
+
+/* PROGRESS */
+.prog-bar{margin:0 2rem;padding:1rem 1.25rem;background:var(--surf);border:0.5px solid var(--brd);border-radius:10px}
+.prog-hdr{display:flex;justify-content:space-between;margin-bottom:8px}
+.prog-lbl{font-family:var(--syne);font-size:11px;font-weight:600;letter-spacing:0.1em;color:var(--mut)}
+.prog-pct{font-family:var(--syne);font-size:13px;font-weight:700;color:var(--acc)}
+.prog-track{height:3px;background:rgba(255,255,255,0.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--wp),var(--acc));border-radius:2px;transition:width 0.4s ease;width:0%}
+
+/* TABS */
+.tabs{display:flex;gap:2px;padding:1.25rem 2rem 0;border-bottom:0.5px solid var(--brd)}
+.tab{font-family:var(--syne);font-size:11px;font-weight:600;letter-spacing:0.06em;padding:7px 14px;border:none;background:none;color:var(--mut);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-0.5px;border-radius:4px 4px 0 0;transition:color 0.2s,background 0.2s}
+.tab:hover{color:var(--txt);background:rgba(127,119,221,0.06)}
+.tab.on{color:var(--acc);border-bottom-color:var(--acc)}
+
+/* PANELS */
+.panel{display:none;padding:1.75rem 2rem;animation:fi 0.25s ease}
+.panel.on{display:block}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS */
+.stats{display:flex;gap:10px;margin-bottom:1.75rem}
+.stat{flex:1;background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;padding:1rem;text-align:center}
+.stat-n{font-family:var(--syne);font-size:1.5rem;font-weight:800;color:var(--acc)}
+.stat-l{font-size:11px;color:var(--mut);margin-top:2px}
+
+/* OV CARDS */
+.ov-title{font-family:var(--syne);font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--mut);margin-bottom:0.85rem}
+.ov-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:1.75rem}
+.ov-card{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;padding:1.1rem;cursor:pointer;transition:border-color 0.2s,transform 0.15s;text-align:center}
+.ov-card:hover{border-color:var(--wp);transform:translateY(-2px)}
+.ov-ct{font-family:var(--syne);font-size:12px;font-weight:700;color:var(--txt);margin-bottom:3px}
+.ov-cs{font-size:11px;color:var(--mut);line-height:1.4}
+
+/* OUTCOMES */
+.outcome{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;background:var(--surf);border:0.5px solid var(--brd);border-radius:8px;margin-bottom:7px}
+.outcome i{font-size:14px;color:var(--wp);margin-top:1px;flex-shrink:0}
+.outcome span{font-size:13px;color:var(--mut);line-height:1.45}
+
+/* BUTTONS */
+.btn-primary{display:inline-block;padding:10px 22px;background:var(--wp);border:none;border-radius:8px;font-family:var(--syne);font-size:11px;font-weight:700;letter-spacing:0.08em;color:#fff;cursor:pointer;transition:opacity 0.2s}
+.btn-primary:hover{opacity:0.85}
+.btn-ghost{display:inline-block;padding:10px 18px;background:transparent;border:0.5px solid var(--brd);border-radius:8px;font-family:var(--syne);font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--mut);cursor:pointer;transition:border-color 0.2s,color 0.2s}
+.btn-ghost:hover{border-color:var(--acc);color:var(--txt)}
+.btn-done{background:rgba(127,119,221,0.18);color:var(--acc)}
+
+/* SYLLABUS */
+.sec-card{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;margin-bottom:10px;overflow:hidden;transition:border-color 0.2s}
+.sec-card:hover{border-color:rgba(127,119,221,0.35)}
+.sec-hdr{display:flex;align-items:center;gap:12px;padding:1.1rem 1.25rem;cursor:pointer;user-select:none}
+.sec-num{font-family:var(--syne);font-size:10px;font-weight:700;letter-spacing:0.1em;color:var(--wp);background:rgba(127,119,221,0.12);border-radius:5px;padding:3px 8px;min-width:32px;text-align:center}
+.sec-ttl{font-family:var(--syne);font-size:13px;font-weight:700;color:var(--txt);flex:1}
+.sec-cnt{font-size:11px;color:var(--mut)}
+.sec-chev{font-size:15px;color:var(--mut);transition:transform 0.22s}
+.sec-card.open .sec-chev{transform:rotate(180deg)}
+.sec-body{display:none;border-top:0.5px solid var(--brd)}
+.sec-card.open .sec-body{display:block}
+.lesson{display:flex;align-items:center;gap:10px;padding:0.8rem 1.25rem;border-bottom:0.5px solid rgba(127,119,221,0.07);cursor:pointer;transition:background 0.15s}
+.lesson:last-child{border-bottom:none}
+.lesson:hover,.lesson.on{background:rgba(127,119,221,0.09)}
+.chk{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(127,119,221,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
+.chk.done{background:var(--wp);border-color:var(--wp)}
+.chk.done i{color:#fff;font-size:10px}
+.lesson-name{font-size:13px;color:var(--mut);flex:1;line-height:1.4;transition:color 0.15s}
+.lesson:hover .lesson-name,.lesson.on .lesson-name{color:var(--txt)}
+.lesson-time{font-size:10px;color:rgba(240,239,248,0.28);font-family:var(--syne);font-weight:500}
+
+/* READER */
+.reader-wrap{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;padding:1.75rem;margin-bottom:1.25rem}
+.reader-eyebrow{font-family:var(--syne);font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:var(--wp);margin-bottom:0.9rem}
+.reader-wrap h2{font-family:var(--syne);font-size:1.45rem;font-weight:700;letter-spacing:0.04em;color:var(--txt);line-height:1.25;margin-bottom:1rem}
+.reader-body{font-size:13.5px;line-height:1.75;color:var(--mut);font-weight:300}
+.reader-body p{margin-bottom:0.9rem}
+.reader-body strong{color:var(--txt);font-weight:500}
+.reader-body h3{font-family:var(--syne);font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--acc);margin:1.25rem 0 0.6rem}
+.callout{background:rgba(127,119,221,0.07);border:0.5px solid rgba(127,119,221,0.22);border-radius:7px;padding:0.9rem 1.1rem;margin-top:1rem}
+.callout p{font-size:12.5px;line-height:1.6;color:var(--mut);margin:0}
+.callout strong{color:var(--acc)}
+.reader-nav{display:flex;gap:8px;flex-wrap:wrap}
+.lesson-visual{margin-bottom:1.5rem;border-radius:10px;overflow:hidden;border:0.5px solid var(--brd)}
+
+/* KEY QUESTIONS */
+.q-section{margin-bottom:1.5rem}
+.q-section-title{font-family:var(--syne);font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--mut);margin-bottom:0.75rem}
+.q-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.q-card{background:var(--surf);border:0.5px solid var(--brd);border-radius:9px;padding:0.9rem 1.1rem}
+.q-tag{font-family:var(--syne);font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--wp);margin-bottom:5px}
+.q-text{font-size:12px;line-height:1.5;color:var(--mut)}
+
+/* ASSESSMENT */
+.quiz-q{background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;margin-bottom:1.25rem;overflow:hidden}
+.quiz-q-inner{padding:1.25rem}
+.quiz-q-text{font-family:var(--syne);font-size:13px;font-weight:700;color:var(--txt);margin-bottom:1rem;line-height:1.4}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:9px 12px;border:0.5px solid var(--brd);border-radius:7px;cursor:pointer;transition:all 0.18s;font-size:12.5px;color:var(--mut);line-height:1.4}
+.opt:hover{border-color:rgba(127,119,221,0.4);background:rgba(127,119,221,0.07);color:var(--txt)}
+.opt.sel{border-color:var(--wp);background:rgba(127,119,221,0.12);color:var(--txt)}
+.opt.correct{border-color:#3B6D11;background:rgba(59,109,17,0.14);color:#C0DD97}
+.opt.wrong{border-color:#A32D2D;background:rgba(163,45,45,0.11);color:#F09595}
+.opt-k{font-family:var(--syne);font-size:10px;font-weight:700;color:var(--wp);min-width:16px;margin-top:1px}
+.quiz-result{text-align:center;padding:1.75rem;background:var(--surf);border:0.5px solid var(--brd);border-radius:10px;margin-top:1.25rem}
+.result-score{font-family:var(--syne);font-size:2.8rem;font-weight:800;color:var(--acc)}
+.result-msg{font-size:13px;color:var(--mut);margin-top:0.4rem;line-height:1.5}
+.btn-submit{width:100%;padding:11px;background:var(--wp);border:none;border-radius:8px;font-family:var(--syne);font-size:12px;font-weight:700;letter-spacing:0.08em;color:#fff;cursor:pointer;margin-top:1rem;transition:opacity 0.2s}
+.btn-submit:hover{opacity:0.85}
+.btn-submit:disabled{opacity:0.3;cursor:not-allowed}
+
+/* SVG ANIMATIONS */
+@keyframes pulse{0%,100%{opacity:0.5}50%{opacity:1}}
+@keyframes dash{to{stroke-dashoffset:0}}
+@keyframes floatUp{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+@keyframes blinkDot{0%,100%{opacity:1}50%{opacity:0.1}}
+@keyframes drawLine{from{stroke-dashoffset:200}to{stroke-dashoffset:0}}
+@keyframes scaleIn{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes orbit{from{transform:rotate(0deg) translateX(38px) rotate(0deg)}to{transform:rotate(360deg) translateX(38px) rotate(-360deg)}}
+@keyframes orbit2{from{transform:rotate(120deg) translateX(38px) rotate(-120deg)}to{transform:rotate(480deg) translateX(38px) rotate(-480deg)}}
+@keyframes orbit3{from{transform:rotate(240deg) translateX(38px) rotate(-240deg)}to{transform:rotate(600deg) translateX(38px) rotate(-600deg)}}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.8rem}
+  .ov-grid{grid-template-columns:1fr}
+  .q-grid{grid-template-columns:1fr}
+  .tabs{overflow-x:auto;padding-bottom:0}
+  .tab{font-size:10px;padding:6px 10px}
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div class="hero">
+    <svg class="hero-canvas" viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="200" cy="60" r="50" fill="none" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/>
+      <circle cx="200" cy="60" r="35" fill="none" stroke="rgba(127,119,221,0.12)" stroke-width="0.5"/>
+      <circle cx="200" cy="60" r="20" fill="none" stroke="rgba(127,119,221,0.1)" stroke-width="0.5"/>
+      <circle cx="200" cy="60" r="4" fill="#7F77DD" opacity="0.6"/>
+      <circle cx="235" cy="40" r="3" fill="#A09AF0" style="animation:blinkDot 2s ease-in-out infinite"/>
+      <circle cx="175" cy="80" r="2.5" fill="#A09AF0" style="animation:blinkDot 2.5s ease-in-out infinite 0.5s"/>
+      <circle cx="220" cy="85" r="2" fill="#C8C4F8" style="animation:blinkDot 1.8s ease-in-out infinite 1s"/>
+      <line x1="200" y1="60" x2="235" y2="40" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" stroke-dasharray="4 3" style="animation:drawLine 2s ease forwards"/>
+      <line x1="200" y1="60" x2="175" y2="80" stroke="rgba(127,119,221,0.25)" stroke-width="0.5" stroke-dasharray="4 3" style="animation:drawLine 2.5s ease forwards"/>
+      <line x1="200" y1="60" x2="220" y2="85" stroke="rgba(127,119,221,0.2)" stroke-width="0.5" stroke-dasharray="4 3" style="animation:drawLine 3s ease forwards"/>
+      <rect x="260" y="130" width="12" height="30" rx="2" fill="rgba(127,119,221,0.2)" style="animation:floatUp 3s ease-in-out infinite"/>
+      <rect x="276" y="118" width="12" height="42" rx="2" fill="rgba(127,119,221,0.3)" style="animation:floatUp 3s ease-in-out infinite 0.4s"/>
+      <rect x="292" y="125" width="12" height="35" rx="2" fill="rgba(127,119,221,0.2)" style="animation:floatUp 3s ease-in-out infinite 0.8s"/>
+    </svg>
+    <div class="acad-lbl">Winnin Academy</div>
+    <h1>Level 00<br><span>Foundations</span></h1>
+    <p>The starting point for everyone who joins the team — culture, data, strategy, and technology in one shared mental model.</p>
+    <div class="pills">
+      <span class="pill">25 lessons</span>
+      <span class="pill">~3 hours</span>
+      <span class="pill">3 sections</span>
+      <span class="pill">1 assessment</span>
+    </div>
+  </div>
+
+  <div class="quote">
+    <p>"The most important question in brand strategy — where is culture going, and where does my brand have the right to win? — deserves a real answer, grounded in how people actually behave."</p>
+    <cite>— Gian Martinez, Founder &amp; CEO</cite>
+  </div>
+
+  <div class="prog-bar">
+    <div class="prog-hdr">
+      <span class="prog-lbl">Your progress</span>
+      <span class="prog-pct" id="pctLbl">0%</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" id="tb-overview" onclick="showTab('overview')">Overview</button>
+    <button class="tab" id="tb-learn" onclick="showTab('learn')">Learn</button>
+    <button class="tab" id="tb-questions" onclick="showTab('questions')">Key Questions</button>
+    <button class="tab" id="tb-assessment" onclick="showTab('assessment')">Assessment</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="panel on" id="panel-overview">
+    <div class="stats">
+      <div class="stat"><div class="stat-n">3</div><div class="stat-l">Sections</div></div>
+      <div class="stat"><div class="stat-n">25</div><div class="stat-l">Lessons</div></div>
+      <div class="stat"><div class="stat-n" id="doneStat">0</div><div class="stat-l">Completed</div></div>
+    </div>
+
+    <div style="background:var(--surf);border:0.5px solid var(--brd);border-radius:12px;padding:1.5rem;margin-bottom:1.75rem">
+      <div class="ov-title" style="margin-bottom:1rem">The learning journey</div>
+      <svg viewBox="0 0 640 100" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block">
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="rgba(127,119,221,0.5)"/>
+          </marker>
+        </defs>
+        <rect x="10" y="30" width="130" height="40" rx="6" fill="rgba(127,119,221,0.12)" stroke="rgba(127,119,221,0.35)" stroke-width="0.5"/>
+        <text x="75" y="47" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em">WHY WINNIN</text>
+        <text x="75" y="59" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">EXISTS</text>
+        <line x1="141" y1="50" x2="168" y2="50" stroke="rgba(127,119,221,0.4)" stroke-width="0.8" marker-end="url(#arr)" stroke-dasharray="100" stroke-dashoffset="100" style="animation:dash 0.8s 0.5s ease forwards"/>
+        <rect x="170" y="30" width="130" height="40" rx="6" fill="rgba(127,119,221,0.12)" stroke="rgba(127,119,221,0.35)" stroke-width="0.5"/>
+        <text x="235" y="47" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em">HOW WE</text>
+        <text x="235" y="59" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">WORK</text>
+        <line x1="301" y1="50" x2="328" y2="50" stroke="rgba(127,119,221,0.4)" stroke-width="0.8" marker-end="url(#arr)" stroke-dasharray="100" stroke-dashoffset="100" style="animation:dash 0.8s 1s ease forwards"/>
+        <rect x="330" y="30" width="140" height="40" rx="6" fill="rgba(127,119,221,0.12)" stroke="rgba(127,119,221,0.35)" stroke-width="0.5"/>
+        <text x="400" y="47" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em">WINNIN</text>
+        <text x="400" y="59" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">INTELLIGENCE</text>
+        <line x1="471" y1="50" x2="498" y2="50" stroke="rgba(127,119,221,0.4)" stroke-width="0.8" marker-end="url(#arr)" stroke-dasharray="100" stroke-dashoffset="100" style="animation:dash 0.8s 1.5s ease forwards"/>
+        <rect x="500" y="22" width="130" height="56" rx="6" fill="rgba(160,154,240,0.18)" stroke="rgba(160,154,240,0.5)" stroke-width="0.8"/>
+        <text x="565" y="47" text-anchor="middle" fill="#C8C4F8" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700" letter-spacing="0.08em">ASSESSMENT</text>
+        <text x="565" y="59" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">+CERTIFICATION</text>
+        <circle cx="565" cy="20" r="5" fill="#A09AF0" style="animation:pulse 1.5s ease-in-out infinite"/>
+      </svg>
+    </div>
+
+    <div class="ov-title">What you'll cover</div>
+    <div class="ov-grid">
+      <div class="ov-card" onclick="goLearn(0)">
+        <svg viewBox="0 0 60 50" style="width:60px;height:50px;margin:0 auto 8px;display:block">
+          <circle cx="30" cy="25" r="18" fill="none" stroke="rgba(127,119,221,0.3)" stroke-width="0.8"/>
+          <circle cx="30" cy="25" r="12" fill="none" stroke="rgba(127,119,221,0.2)" stroke-width="0.8"/>
+          <circle cx="30" cy="7" r="3" fill="#7F77DD" style="animation:blinkDot 2s ease-in-out infinite"/>
+          <circle cx="46" cy="34" r="2.5" fill="#A09AF0" style="animation:blinkDot 2s ease-in-out infinite 0.6s"/>
+          <circle cx="14" cy="34" r="2" fill="#C8C4F8" style="animation:blinkDot 2s ease-in-out infinite 1.2s"/>
+          <line x1="30" y1="10" x2="30" y2="25" stroke="rgba(127,119,221,0.4)" stroke-width="0.5"/>
+          <line x1="30" y1="25" x2="43" y2="32" stroke="rgba(127,119,221,0.3)" stroke-width="0.5"/>
+          <line x1="30" y1="25" x2="17" y2="32" stroke="rgba(127,119,221,0.25)" stroke-width="0.5"/>
+        </svg>
+        <div class="ov-ct">Why Winnin Exists</div>
+        <div class="ov-cs">Attention Economy, outside-in mindset, pitch &amp; case studies</div>
+      </div>
+      <div class="ov-card" onclick="goLearn(1)">
+        <svg viewBox="0 0 60 50" style="width:60px;height:50px;margin:0 auto 8px;display:block">
+          <rect x="10" y="30" width="8" height="14" rx="1" fill="rgba(127,119,221,0.3)" style="animation:floatUp 2.5s ease-in-out infinite"/>
+          <rect x="22" y="22" width="8" height="22" rx="1" fill="rgba(127,119,221,0.5)" style="animation:floatUp 2.5s ease-in-out infinite 0.3s"/>
+          <rect x="34" y="26" width="8" height="18" rx="1" fill="rgba(127,119,221,0.4)" style="animation:floatUp 2.5s ease-in-out infinite 0.6s"/>
+          <rect x="46" y="18" width="8" height="26" rx="1" fill="rgba(160,154,240,0.6)" style="animation:floatUp 2.5s ease-in-out infinite 0.9s"/>
+          <line x1="6" y1="44" x2="58" y2="44" stroke="rgba(127,119,221,0.3)" stroke-width="0.5"/>
+        </svg>
+        <div class="ov-ct">How We Work</div>
+        <div class="ov-cs">Platform vs. service, methodology, nine analyses, metrics</div>
+      </div>
+      <div class="ov-card" onclick="goLearn(2)">
+        <svg viewBox="0 0 60 50" style="width:60px;height:50px;margin:0 auto 8px;display:block">
+          <rect x="8" y="10" width="44" height="32" rx="3" fill="none" stroke="rgba(127,119,221,0.3)" stroke-width="0.8"/>
+          <rect x="12" y="14" width="16" height="10" rx="1.5" fill="rgba(127,119,221,0.2)"/>
+          <rect x="32" y="14" width="16" height="10" rx="1.5" fill="rgba(127,119,221,0.15)"/>
+          <rect x="12" y="28" width="36" height="3" rx="1.5" fill="rgba(127,119,221,0.12)"/>
+          <rect x="12" y="33" width="24" height="3" rx="1.5" fill="rgba(127,119,221,0.08)"/>
+          <circle cx="48" cy="42" r="5" fill="rgba(127,119,221,0.3)" style="animation:pulse 2s ease-in-out infinite"/>
+          <text x="48" y="45.5" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="6" font-weight="700">Z</text>
+        </svg>
+        <div class="ov-ct">Winnin Intelligence</div>
+        <div class="ov-cs">Four intelligence blocks, platform navigation, ZAI, dashboards</div>
+      </div>
+    </div>
+
+    <div class="ov-title">After Level 00 you'll be able to</div>
+    <div class="outcome"><i class="ti ti-check"></i><span>Explain why Winnin exists and articulate the gap it fills in brand strategy</span></div>
+    <div class="outcome"><i class="ti ti-check"></i><span>Operate with the right defaults — dashboard vs. deck, reframe a brief, match the right analysis</span></div>
+    <div class="outcome"><i class="ti ti-check"></i><span>Navigate the platform confidently, calibrate a workspace, run the nine analyses</span></div>
+    <div class="outcome"><i class="ti ti-check"></i><span>Use ZAI as a strategy copilot, not just a search bar</span></div>
+    <div style="text-align:center;margin-top:1.75rem">
+      <button class="btn-primary" onclick="goLearn(0)">Start learning →</button>
+    </div>
+  </div>
+
+  <!-- LEARN -->
+  <div class="panel" id="panel-learn">
+    <div id="syllabus"></div>
+    <div id="reader" style="display:none">
+      <div class="reader-wrap" id="readerContent"></div>
+      <div class="reader-nav">
+        <button class="btn-primary" id="btnComplete" onclick="markLesson()">Mark complete</button>
+        <button class="btn-ghost" onclick="nextLesson()">Next →</button>
+        <button class="btn-ghost" onclick="backToSyllabus()">← Back</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY QUESTIONS -->
+  <div class="panel" id="panel-questions">
+    <svg viewBox="0 0 680 80" style="width:100%;display:block;margin-bottom:1.25rem;border-radius:10px">
+      <rect width="680" height="80" fill="rgba(127,119,221,0.07)" rx="10"/>
+      <rect width="680" height="80" fill="none" stroke="rgba(127,119,221,0.18)" stroke-width="0.5" rx="10"/>
+      <text x="24" y="30" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="10" font-weight="700" letter-spacing="0.14em">LEVEL 00 · KEY QUESTIONS</text>
+      <text x="24" y="50" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="11" font-weight="300">What you should be able to answer clearly — including in front of a client — after completing Level 00.</text>
+      <circle cx="640" cy="20" r="4" fill="#7F77DD" style="animation:pulse 2s ease-in-out infinite"/>
+      <circle cx="655" cy="20" r="3" fill="#A09AF0" style="animation:pulse 2s ease-in-out infinite 0.5s"/>
+      <circle cx="668" cy="20" r="2.5" fill="#C8C4F8" style="animation:pulse 2s ease-in-out infinite 1s"/>
+    </svg>
+    <div class="q-section">
+      <div class="q-section-title">Understanding the problem</div>
+      <div class="q-grid">
+        <div class="q-card"><div class="q-tag">Attention Economy</div><div class="q-text">Why do brands that keep increasing media spend keep losing cultural relevance?</div></div>
+        <div class="q-card"><div class="q-tag">Creative Process</div><div class="q-text">What's broken about how most brands brief their creative and strategy teams?</div></div>
+        <div class="q-card"><div class="q-tag">Signals</div><div class="q-text">Why is what people watch a more revealing signal than what they say?</div></div>
+        <div class="q-card"><div class="q-tag">Brand Building</div><div class="q-text">How does the Attention Economy change the rules of brand building?</div></div>
+      </div>
+    </div>
+    <div class="q-section">
+      <div class="q-section-title">Knowing Winnin</div>
+      <div class="q-grid">
+        <div class="q-card"><div class="q-tag">Differentiation</div><div class="q-text">What makes Winnin fundamentally different from social listening and traditional research?</div></div>
+        <div class="q-card"><div class="q-tag">Problem &amp; Pain</div><div class="q-text">What problem does Winnin solve — and who suffers from that pain point the most?</div></div>
+        <div class="q-card"><div class="q-tag">Right to Win</div><div class="q-text">What does it mean for a brand to have a genuine right to win in a cultural territory?</div></div>
+        <div class="q-card"><div class="q-tag">Positioning</div><div class="q-text">How do you articulate the Winnin pitch — problem, platform, and commercial proof?</div></div>
+      </div>
+    </div>
+    <div class="q-section">
+      <div class="q-section-title">Operating well</div>
+      <div class="q-grid">
+        <div class="q-card"><div class="q-tag">Business Model</div><div class="q-text">What's the difference between a platform business and a service business?</div></div>
+        <div class="q-card"><div class="q-tag">Briefs</div><div class="q-text">How do I turn a vague, prescriptive brief into a specific, answerable cultural question?</div></div>
+        <div class="q-card"><div class="q-tag">Deliverables</div><div class="q-text">When does a client need a dashboard vs. a deck — and what's the cost of the wrong default?</div></div>
+        <div class="q-card"><div class="q-tag">Analyses</div><div class="q-text">What are the nine analyses, and how do I match the right one to a client challenge?</div></div>
+      </div>
+    </div>
+    <div class="q-section">
+      <div class="q-section-title">Using the platform</div>
+      <div class="q-grid">
+        <div class="q-card"><div class="q-tag">Navigation</div><div class="q-text">How is the platform organized — and where do I start when I open a new client workspace?</div></div>
+        <div class="q-card"><div class="q-tag">Intelligence Blocks</div><div class="q-text">What's the difference between Brand, Category, and Cultural Intelligence?</div></div>
+        <div class="q-card"><div class="q-tag">Calibration</div><div class="q-text">How do I calibrate a workspace so the data I'm looking at is actually relevant?</div></div>
+        <div class="q-card"><div class="q-tag">ZAI</div><div class="q-text">What is ZAI, and how do I use it as a strategy copilot instead of a search bar?</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSESSMENT -->
+  <div class="panel" id="panel-assessment">
+    <svg viewBox="0 0 680 90" style="width:100%;display:block;margin-bottom:1.5rem;border-radius:10px">
+      <rect width="680" height="90" fill="rgba(127,119,221,0.06)" rx="10"/>
+      <rect width="680" height="90" fill="none" stroke="rgba(127,119,221,0.15)" stroke-width="0.5" rx="10"/>
+      <text x="24" y="34" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="12" font-weight="800" letter-spacing="0.1em">FOUNDATIONS ASSESSMENT</text>
+      <text x="24" y="54" fill="rgba(240,239,248,0.38)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="11" font-weight="300">8 questions · Select the best answer for each · Results shown on submit</text>
+      <g transform="translate(580,45)">
+        <circle r="28" fill="none" stroke="rgba(127,119,221,0.15)" stroke-width="1"/>
+        <circle r="20" fill="none" stroke="rgba(127,119,221,0.2)" stroke-width="1"/>
+        <circle r="12" fill="rgba(127,119,221,0.15)" stroke="rgba(127,119,221,0.4)" stroke-width="0.8"/>
+        <text y="4" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="800">L00</text>
+        <circle r="3" fill="#7F77DD" cx="0" cy="-20" style="animation:orbit 4s linear infinite"/>
+        <circle r="2" fill="#C8C4F8" cx="0" cy="-20" style="animation:orbit2 6s linear infinite"/>
+        <circle r="2.5" fill="#A09AF0" cx="0" cy="-20" style="animation:orbit3 5s linear infinite"/>
+      </g>
+    </svg>
+    <div id="quizContainer"></div>
+    <div class="quiz-result" id="quizResult" style="display:none">
+      <div class="result-score" id="resultScore"></div>
+      <div class="result-msg" id="resultMsg"></div>
+      <button class="btn-primary" onclick="resetQuiz()" style="margin-top:1.25rem">Retake assessment</button>
+    </div>
+  </div>
+
+</div><!-- end page-wrap -->
+
+<script>
+var VISUALS=[
+  '<svg viewBox="0 0 680 110" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="110" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">MEDIA SPEND VS CULTURAL RELEVANCE</text><line x1="20" y1="90" x2="660" y2="90" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><line x1="20" y1="30" x2="20" y2="90" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><polyline points="20,85 150,78 280,68 410,55 540,40 660,30" fill="none" stroke="#7F77DD" stroke-width="1.5" stroke-dasharray="800" stroke-dashoffset="800" style="animation:dash 1.5s ease forwards"/><polyline points="20,35 150,42 280,52 410,65 540,78 660,88" fill="none" stroke="rgba(240,100,100,0.6)" stroke-width="1.5" stroke-dasharray="800" stroke-dashoffset="800" style="animation:dash 1.5s 0.3s ease forwards"/><text x="665" y="32" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9">Media spend \u2191</text><text x="665" y="91" fill="rgba(240,100,100,0.7)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9">Relevance \u2193</text></svg>',
+  '<svg viewBox="0 0 680 100" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="100" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">PLATFORM LEVERAGE: ONE \u2192 MANY</text><rect x="295" y="35" width="90" height="36" rx="4" fill="rgba(127,119,221,0.2)" stroke="rgba(127,119,221,0.5)" stroke-width="0.8"/><text x="340" y="58" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">PLATFORM</text><circle cx="100" cy="53" r="18" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.3)" stroke-width="0.5"/><text x="100" y="56" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Client A</text><circle cx="580" cy="30" r="15" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.3)" stroke-width="0.5"/><text x="580" y="33" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Client B</text><circle cx="580" cy="75" r="15" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.3)" stroke-width="0.5"/><text x="580" y="78" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Client C</text><line x1="118" y1="53" x2="293" y2="53" stroke="rgba(127,119,221,0.3)" stroke-width="0.6" stroke-dasharray="400" stroke-dashoffset="400" style="animation:dash 1s ease forwards"/><line x1="385" y1="46" x2="564" y2="32" stroke="rgba(127,119,221,0.3)" stroke-width="0.6" stroke-dasharray="400" stroke-dashoffset="400" style="animation:dash 1s 0.3s ease forwards"/><line x1="385" y1="60" x2="564" y2="73" stroke="rgba(127,119,221,0.3)" stroke-width="0.6" stroke-dasharray="400" stroke-dashoffset="400" style="animation:dash 1s 0.5s ease forwards"/></svg>',
+  '<svg viewBox="0 0 680 100" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="100" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">WINNIN METHODOLOGY: MACRO \u2192 MICRO</text><polygon points="80,35 260,35 230,78 110,78" fill="rgba(127,119,221,0.15)" stroke="rgba(127,119,221,0.35)" stroke-width="0.5" style="animation:scaleIn 0.6s ease forwards"/><text x="170" y="62" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">CULTURE</text><polygon points="280,40 420,40 400,78 300,78" fill="rgba(127,119,221,0.2)" stroke="rgba(127,119,221,0.4)" stroke-width="0.5" style="animation:scaleIn 0.6s 0.2s ease forwards;transform-origin:350px 60px"/><text x="350" y="64" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">CATEGORY</text><polygon points="440,44 550,44 535,78 455,78" fill="rgba(127,119,221,0.3)" stroke="rgba(127,119,221,0.5)" stroke-width="0.5" style="animation:scaleIn 0.6s 0.4s ease forwards;transform-origin:495px 62px"/><text x="495" y="66" text-anchor="middle" fill="#C8C4F8" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">BRAND</text><rect x="570" y="48" width="80" height="26" rx="3" fill="rgba(160,154,240,0.25)" stroke="rgba(160,154,240,0.5)" stroke-width="0.6" style="animation:scaleIn 0.5s 0.6s ease forwards;transform-origin:610px 62px"/><text x="610" y="66" text-anchor="middle" fill="#C8C4F8" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">CONTENT</text></svg>',
+  '<svg viewBox="0 0 680 100" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="100" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">DASHBOARD VS DECK</text><rect x="40" y="35" width="240" height="52" rx="5" fill="rgba(127,119,221,0.12)" stroke="rgba(127,119,221,0.35)" stroke-width="0.7"/><rect x="50" y="43" width="90" height="16" rx="2" fill="rgba(127,119,221,0.2)"/><rect x="148" y="43" width="50" height="7" rx="1.5" fill="rgba(127,119,221,0.15)"/><rect x="148" y="53" width="36" height="7" rx="1.5" fill="rgba(127,119,221,0.1)"/><rect x="50" y="65" width="200" height="5" rx="2" fill="rgba(127,119,221,0.1)"/><rect x="50" y="73" width="140" height="5" rx="2" fill="rgba(127,119,221,0.07)"/><text x="160" y="100" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">DASHBOARD \u00b7 always live</text><rect x="400" y="35" width="160" height="52" rx="3" fill="rgba(240,239,248,0.04)" stroke="rgba(240,239,248,0.12)" stroke-width="0.7"/><rect x="410" y="43" width="140" height="8" rx="1.5" fill="rgba(240,239,248,0.08)"/><rect x="410" y="55" width="100" height="5" rx="1.5" fill="rgba(240,239,248,0.05)"/><rect x="410" y="64" width="120" height="5" rx="1.5" fill="rgba(240,239,248,0.04)"/><text x="480" y="100" text-anchor="middle" fill="rgba(240,239,248,0.25)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">DECK \u00b7 goes stale</text><text x="335" y="65" text-anchor="middle" fill="rgba(127,119,221,0.5)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="16" font-weight="800">\u2192</text></svg>',
+  '<svg viewBox="0 0 680 100" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="100" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">BRIEF REFRAMING</text><rect x="20" y="32" width="240" height="48" rx="5" fill="rgba(240,100,80,0.06)" stroke="rgba(240,100,80,0.2)" stroke-width="0.6"/><text x="30" y="52" fill="rgba(240,120,100,0.7)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">PRESCRIPTIVE BRIEF</text><text x="30" y="66" fill="rgba(240,239,248,0.35)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="300">"Prove audiences care about</text><text x="30" y="76" fill="rgba(240,239,248,0.35)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="300">sustainability."</text><text x="330" y="60" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="20" font-weight="800" style="animation:floatUp 2s ease-in-out infinite">\u2192</text><rect x="420" y="32" width="240" height="48" rx="5" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.35)" stroke-width="0.6"/><text x="430" y="52" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">CULTURAL QUESTION</text><text x="430" y="66" fill="rgba(240,239,248,0.55)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="300">"Where does sustainability sit in our</text><text x="430" y="76" fill="rgba(240,239,248,0.55)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="300">audience\'s attention landscape?"</text></svg>',
+  '<svg viewBox="0 0 680 100" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="100" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">ZAI: COPILOT VS SEARCH BAR</text><g transform="translate(100,60)"><circle r="26" fill="rgba(127,119,221,0.15)" stroke="rgba(127,119,221,0.4)" stroke-width="0.8"/><text y="-4" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="10" font-weight="800">ZAI</text><text y="8" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="7">copilot</text><circle r="3" fill="#7F77DD" cx="0" cy="-26" style="animation:orbit 3s linear infinite"/><circle r="2" fill="#C8C4F8" cx="0" cy="-26" style="animation:orbit2 4.5s linear infinite"/></g><line x1="128" y1="60" x2="160" y2="46" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" stroke-dasharray="3 2"/><line x1="128" y1="60" x2="160" y2="60" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" stroke-dasharray="3 2"/><line x1="128" y1="60" x2="160" y2="74" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" stroke-dasharray="3 2"/><rect x="162" y="38" width="180" height="16" rx="3" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.25)" stroke-width="0.5"/><text x="172" y="49" fill="rgba(240,239,248,0.45)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Pattern recognition</text><rect x="162" y="58" width="180" height="16" rx="3" fill="rgba(127,119,221,0.12)" stroke="rgba(127,119,221,0.3)" stroke-width="0.5"/><text x="172" y="69" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Strategic synthesis</text><rect x="162" y="78" width="180" height="16" rx="3" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.25)" stroke-width="0.5"/><text x="172" y="89" fill="rgba(240,239,248,0.45)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Recommendations</text><text x="445" y="83" fill="rgba(240,100,80,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">\u2715 "show me data on fitness brands"</text></svg>',
+  '<svg viewBox="0 0 680 100" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="100" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">PLATFORM METRICS</text><rect x="20" y="33" width="82" height="46" rx="4" fill="rgba(127,119,221,0.06)" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><text x="61" y="53" text-anchor="middle" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600">VIEWS</text><text x="61" y="67" text-anchor="middle" fill="rgba(240,239,248,0.2)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">volume</text><rect x="110" y="33" width="82" height="46" rx="4" fill="rgba(127,119,221,0.06)" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><text x="151" y="53" text-anchor="middle" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600">ENGAGE</text><text x="151" y="67" text-anchor="middle" fill="rgba(240,239,248,0.2)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">interaction</text><rect x="200" y="33" width="82" height="46" rx="4" fill="rgba(127,119,221,0.06)" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><text x="241" y="53" text-anchor="middle" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600">COUNT</text><text x="241" y="67" text-anchor="middle" fill="rgba(240,239,248,0.2)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">production</text><rect x="290" y="28" width="100" height="56" rx="5" fill="rgba(127,119,221,0.2)" stroke="rgba(127,119,221,0.6)" stroke-width="1"/><text x="340" y="51" text-anchor="middle" fill="#C8C4F8" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="10" font-weight="800">AFFINITY</text><text x="340" y="65" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">connection</text><circle cx="340" cy="76" r="3" fill="#7F77DD" style="animation:pulse 1.5s ease-in-out infinite"/><rect x="398" y="33" width="82" height="46" rx="4" fill="rgba(127,119,221,0.06)" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><text x="439" y="53" text-anchor="middle" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600">E7</text><text x="439" y="67" text-anchor="middle" fill="rgba(240,239,248,0.2)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">recency</text><rect x="488" y="33" width="82" height="46" rx="4" fill="rgba(127,119,221,0.06)" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><text x="529" y="53" text-anchor="middle" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600">SENTIMENT</text><text x="529" y="67" text-anchor="middle" fill="rgba(240,239,248,0.2)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">emotion</text></svg>',
+  '<svg viewBox="0 0 680 100" style="width:100%;display:block" xmlns="http://www.w3.org/2000/svg"><rect width="680" height="100" fill="rgba(127,119,221,0.05)"/><text x="20" y="22" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">WORKSPACE WORKFLOW</text><defs><marker id="a2" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto"><path d="M0,0 L5,2.5 L0,5 Z" fill="rgba(127,119,221,0.5)"/></marker></defs><rect x="20" y="38" width="100" height="34" rx="4" fill="rgba(160,154,240,0.2)" stroke="rgba(160,154,240,0.5)" stroke-width="0.8" style="animation:scaleIn 0.4s ease forwards"/><text x="70" y="60" text-anchor="middle" fill="#C8C4F8" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">HOME</text><line x1="121" y1="55" x2="145" y2="55" stroke="rgba(127,119,221,0.4)" stroke-width="0.7" marker-end="url(#a2)" stroke-dasharray="100" stroke-dashoffset="100" style="animation:dash 0.5s 0.3s ease forwards"/><rect x="147" y="38" width="120" height="34" rx="4" fill="rgba(127,119,221,0.12)" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" style="animation:scaleIn 0.4s 0.3s ease forwards;transform-origin:207px 55px"/><text x="207" y="60" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">CALIBRATE</text><line x1="268" y1="55" x2="292" y2="55" stroke="rgba(127,119,221,0.4)" stroke-width="0.7" marker-end="url(#a2)" stroke-dasharray="100" stroke-dashoffset="100" style="animation:dash 0.5s 0.6s ease forwards"/><rect x="294" y="38" width="110" height="34" rx="4" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.25)" stroke-width="0.5" style="animation:scaleIn 0.4s 0.6s ease forwards;transform-origin:349px 55px"/><text x="349" y="60" text-anchor="middle" fill="rgba(240,239,248,0.5)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">NAVIGATE</text><line x1="405" y1="55" x2="429" y2="55" stroke="rgba(127,119,221,0.4)" stroke-width="0.7" marker-end="url(#a2)" stroke-dasharray="100" stroke-dashoffset="100" style="animation:dash 0.5s 0.9s ease forwards"/><rect x="431" y="38" width="110" height="34" rx="4" fill="rgba(127,119,221,0.08)" stroke="rgba(127,119,221,0.2)" stroke-width="0.5" style="animation:scaleIn 0.4s 0.9s ease forwards;transform-origin:486px 55px"/><text x="486" y="60" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">ANALYZE</text><line x1="542" y1="55" x2="566" y2="55" stroke="rgba(127,119,221,0.4)" stroke-width="0.7" marker-end="url(#a2)" stroke-dasharray="100" stroke-dashoffset="100" style="animation:dash 0.5s 1.2s ease forwards"/><rect x="568" y="38" width="90" height="34" rx="4" fill="rgba(127,119,221,0.06)" stroke="rgba(127,119,221,0.18)" stroke-width="0.5" style="animation:scaleIn 0.4s 1.2s ease forwards;transform-origin:613px 55px"/><text x="613" y="60" text-anchor="middle" fill="rgba(240,239,248,0.35)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">DELIVER</text></svg>'
+];
+
+var SECTIONS=[
+  {id:0,num:'01',title:'Why Winnin Exists',lessons:[
+    {id:'a1',title:'What is the Attention Economy?',time:'6 min',vis:'<svg viewBox="0 0 640 90" style="width:100%;display:block;margin-bottom:1.25rem;border-radius:8px" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="90" fill="rgba(127,119,221,0.06)" rx="8"/><text x="16" y="20" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600" letter-spacing="0.12em">ATTENTION IS THE SCARCE RESOURCE</text><line x1="16" y1="80" x2="620" y2="80" stroke="rgba(127,119,221,0.15)" stroke-width="0.5"/><polyline points="16,75 120,68 240,55 360,40 480,30 620,22" fill="none" stroke="#7F77DD" stroke-width="1.5" stroke-dasharray="700" stroke-dashoffset="700" style="animation:dash 1.8s ease forwards"/><polyline points="16,28 120,36 240,50 360,62 480,72 620,78" fill="none" stroke="rgba(240,100,80,0.55)" stroke-width="1.5" stroke-dasharray="700" stroke-dashoffset="700" style="animation:dash 1.8s 0.4s ease forwards"/><text x="625" y="25" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Content \u2191</text><text x="625" y="80" fill="rgba(240,100,80,0.6)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8">Attention \u2193</text></svg>',
+     body:'<h3>The core insight</h3><p>Information is no longer scarce. <strong>Attention is.</strong> This single shift changes the rules of brand building entirely.</p><p>The Attention Economy describes a world of infinite content competing for a finite resource. Most brands respond by spending more. The data shows this does not work.</p><h3>Why this matters for Winnin</h3><p>Winnin was founded on the observation that brands gaining cultural relevance are not necessarily spending the most — they show up in the right cultural conversations.</p><div class="callout"><p><strong>Key takeaway:</strong> Attention cannot be bought. It has to be earned by showing up where culture is already moving.</p></div>'},
+    {id:'a2',title:'The outside-in, culture-first mindset',time:'5 min',vis:'<svg viewBox="0 0 640 80" style="width:100%;display:block;margin-bottom:1.25rem;border-radius:8px" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="80" fill="rgba(127,119,221,0.06)" rx="8"/><text x="16" y="20" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600" letter-spacing="0.12em">INSIDE-OUT VS OUTSIDE-IN</text><rect x="16" y="30" width="240" height="32" rx="4" fill="rgba(240,100,80,0.06)" stroke="rgba(240,100,80,0.2)" stroke-width="0.6"/><text x="136" y="50" text-anchor="middle" fill="rgba(240,120,100,0.6)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">BRAND \u2192 AUDIENCE (broken)</text><text x="320" y="50" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="18" font-weight="800" style="animation:floatUp 2s ease-in-out infinite">\u2194</text><rect x="384" y="30" width="240" height="32" rx="4" fill="rgba(127,119,221,0.1)" stroke="rgba(127,119,221,0.35)" stroke-width="0.6"/><text x="504" y="50" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">AUDIENCE \u2192 BRAND (Winnin)</text></svg>',
+     body:'<h3>Inside-out vs. outside-in</h3><p>The default mode for most brands is <strong>inside-out</strong>: start with what the brand wants to say, then figure out where to say it.</p><p>The <strong>outside-in mindset</strong> inverts this. Start with the audience — what they watch, what they care about — and work backwards to the brand\'s role in that conversation.</p><div class="callout"><p><strong>Key takeaway:</strong> Cultural relevance starts with understanding the audience, not the brand. The brand comes second.</p></div>'},
+    {id:'a3',title:'Who we are, what we believe, where we are headed',time:'7 min',vis:null,body:'<h3>Origin</h3><p>Winnin was built to answer a question that existing tools could not: <strong>where is culture going, and where does my brand have the right to win?</strong></p><h3>What we believe</h3><p>Behavior reveals more than opinion. Video consumption data is among the most honest signals available — nobody watches something they do not want to watch.</p><h3>Where we are headed</h3><p>The roadmap runs toward a world where every brand team has continuous cultural intelligence built into their planning process — not as a quarterly research project, but as an always-on capability.</p><div class="callout"><p><strong>Key takeaway:</strong> Winnin exists because the most important strategic question in brand building deserves a data-grounded answer.</p></div>'},
+    {id:'a4',title:'The Winnin pitch: purpose, positioning, implementation',time:'8 min',vis:null,body:'<h3>The problem</h3><p>Most brands are spending more on media and becoming less culturally relevant. The process starts from the inside — from what the brand wants to say — rather than from where audience attention actually lives.</p><h3>The solution</h3><p>Winnin is a <strong>cultural intelligence platform</strong> that tells brands where culture is going and where they have the right to win.</p><h3>The proof</h3><p>Clients use Winnin to identify growth territories, win pitches, validate creative strategies before production, and track brand performance in real-time Share of Attention data.</p><div class="callout"><p><strong>Key takeaway:</strong> The Winnin pitch has three moves — name the problem, show the solution, prove the outcome.</p></div>'},
+    {id:'a5',title:'Use cases: how Winnin drives cultural relevance',time:'6 min',vis:null,body:'<h3>Six core use cases</h3><p>Winnin\'s value surfaces across the planning cycle: <strong>audience understanding</strong>, <strong>territory identification</strong>, <strong>competitive intelligence</strong>, <strong>content strategy</strong>, <strong>creator discovery</strong>, and <strong>campaign optimization</strong>.</p><div class="callout"><p><strong>Key takeaway:</strong> Winnin is useful across the full planning cycle — from brief to execution to performance review.</p></div>'},
+    {id:'a6',title:'Selected case studies',time:'8 min',vis:null,body:'<h3>What the case studies show</h3><p>The strongest cases share a pattern: the client started with an inside-out assumption, Winnin reoriented the strategy around audience behavior, and the brand achieved measurably better outcomes.</p><h3>How to use them</h3><p>Know two or three cold — the problem, the approach, and the number. You will use them in prospect conversations, QBRs, and whenever a client challenges the ROI of cultural intelligence.</p><div class="callout"><p><strong>Key takeaway:</strong> Have two or three cases memorized. Problem \u2192 approach \u2192 number.</p></div>'},
+    {id:'a7',title:'Summary \u2014 Why Winnin exists',time:'3 min',vis:null,body:'<h3>Section recap</h3><p>Attention is scarce. Brands are spending more and earning less of it. The problem is structural: the creative process starts from the inside out, disconnected from how audiences actually behave.</p><p>Winnin was built to fix this with <strong>cultural intelligence</strong> \u2014 data that tells brands where audience attention actually lives and where there is a genuine right to win.</p><div class="callout"><p><strong>Before moving on:</strong> Make sure you can explain why Winnin exists, articulate the gap it fills, and describe what culturally relevant brand strategy looks like in practice.</p></div>'}
+  ]},
+  {id:1,num:'02',title:'How We Work',lessons:[
+    {id:'b1',title:'Built to scale: Winnin is a platform, not a service',time:'5 min',vis:'<svg viewBox="0 0 640 80" style="width:100%;display:block;margin-bottom:1.25rem;border-radius:8px" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="80" fill="rgba(127,119,221,0.06)" rx="8"/><text x="16" y="20" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600" letter-spacing="0.12em">PLATFORM LEVERAGE</text><rect x="220" y="28" width="200" height="32" rx="4" fill="rgba(127,119,221,0.18)" stroke="rgba(127,119,221,0.45)" stroke-width="0.8"/><text x="320" y="48" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="10" font-weight="700">PLATFORM</text><circle cx="60" cy="44" r="14" fill="rgba(127,119,221,0.08)" stroke="rgba(127,119,221,0.25)" stroke-width="0.5"/><text x="60" y="47" text-anchor="middle" fill="rgba(240,239,248,0.35)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="7">Client</text><circle cx="580" cy="25" r="12" fill="rgba(127,119,221,0.08)" stroke="rgba(127,119,221,0.25)" stroke-width="0.5"/><text x="580" y="28" text-anchor="middle" fill="rgba(240,239,248,0.35)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="7">Client</text><circle cx="580" cy="62" r="12" fill="rgba(127,119,221,0.08)" stroke="rgba(127,119,221,0.25)" stroke-width="0.5"/><text x="580" y="65" text-anchor="middle" fill="rgba(240,239,248,0.35)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="7">Client</text><line x1="74" y1="44" x2="218" y2="44" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" stroke-dasharray="500" stroke-dashoffset="500" style="animation:dash 0.8s ease forwards"/><line x1="420" y1="38" x2="567" y2="27" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" stroke-dasharray="500" stroke-dashoffset="500" style="animation:dash 0.8s 0.3s ease forwards"/><line x1="420" y1="52" x2="567" y2="61" stroke="rgba(127,119,221,0.3)" stroke-width="0.5" stroke-dasharray="500" stroke-dashoffset="500" style="animation:dash 0.8s 0.5s ease forwards"/></svg>',
+     body:'<h3>The most important operational principle</h3><p>Winnin is a software business. Every decision should be made through the lens of <strong>scale</strong>. A service business trades time for money. A platform business builds leverage.</p><p>Every process that gets automated, every deliverable that gets templated, every client who becomes self-sufficient is a direct contribution to the model.</p><div class="callout"><p><strong>Key takeaway:</strong> When deciding how to do something, ask: can this scale?</p></div>'},
+    {id:'b2',title:'Core concepts vs. Methodology',time:'4 min',vis:null,body:'<h3>Two distinct things</h3><p><strong>Core concepts</strong> are the foundational ideas \u2014 the Attention Economy, outside-in mindset, Share of Attention. These are the intellectual foundation.</p><p><strong>Methodology</strong> is the operational logic \u2014 the sequence of analyses and decision rules for translating data into a recommendation.</p><div class="callout"><p><strong>Key takeaway:</strong> Concepts explain the world. Methodology tells you what to do in it.</p></div>'},
+    {id:'b3',title:'The Winnin Methodology',time:'7 min',vis:'<svg viewBox="0 0 640 80" style="width:100%;display:block;margin-bottom:1.25rem;border-radius:8px" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="80" fill="rgba(127,119,221,0.06)" rx="8"/><text x="16" y="20" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600" letter-spacing="0.12em">MACRO \u2192 MICRO LOGIC</text><polygon points="20,30 200,30 175,66 45,66" fill="rgba(127,119,221,0.14)" stroke="rgba(127,119,221,0.35)" stroke-width="0.5" style="animation:scaleIn 0.5s ease"/><text x="110" y="53" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">CULTURE</text><polygon points="215,34 370,34 350,66 235,66" fill="rgba(127,119,221,0.2)" stroke="rgba(127,119,221,0.4)" stroke-width="0.5" style="animation:scaleIn 0.5s 0.2s ease;transform-origin:292px 50px"/><text x="292" y="55" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">CATEGORY</text><polygon points="385,38 510,38 493,66 402,66" fill="rgba(127,119,221,0.3)" stroke="rgba(127,119,221,0.5)" stroke-width="0.5" style="animation:scaleIn 0.5s 0.4s ease;transform-origin:448px 53px"/><text x="448" y="57" text-anchor="middle" fill="#C8C4F8" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="9" font-weight="700">BRAND</text><rect x="525" y="42" width="90" height="24" rx="3" fill="rgba(160,154,240,0.22)" stroke="rgba(160,154,240,0.5)" stroke-width="0.6" style="animation:scaleIn 0.4s 0.6s ease;transform-origin:570px 54px"/><text x="570" y="58" text-anchor="middle" fill="#C8C4F8" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">CONTENT</text></svg>',
+     body:'<h3>Macro to micro</h3><p>Start broad, go deep. Begin with the cultural landscape, zoom into the category, then to the brand, then to specific content formats.</p><p>Every analysis produces one of three things: a <strong>diagnosis</strong>, a <strong>direction</strong>, or a <strong>recommendation</strong>.</p><div class="callout"><p><strong>Key takeaway:</strong> Macro to micro. Culture first, brand second. Diagnosis \u2192 direction \u2192 recommendation.</p></div>'},
+    {id:'b4',title:'Our Metrics',time:'6 min',vis:null,body:'<h3>What Winnin measures</h3><p><strong>Views</strong> (consumption volume), <strong>Engagement</strong> (interactions), <strong>Video Count</strong> (production volume), <strong>Affinity</strong> (audience connection), <strong>E7</strong> (7-day engagement rate), and <strong>Sentiment</strong> (emotional character).</p><div class="callout"><p><strong>Key takeaway:</strong> No metric tells the full story. Read combinations to form a diagnosis.</p></div>'},
+    {id:'b5',title:'The 9 analyses',time:'8 min',vis:null,body:'<h3>The full toolkit</h3><p>Share of Attention, Category Intelligence, Brand Intelligence, Cultural Intelligence, Passion Map, Custom Cultural Deep Dive, Growth White Spaces, Passions Strategy, and Campaign Co-pilot.</p><div class="callout"><p><strong>Key takeaway:</strong> Know what each analysis is designed to answer. The right analysis saves hours of work.</p></div>'},
+    {id:'b6',title:'Understanding a brief',time:'6 min',vis:null,body:'<h3>Do not take it literally</h3><p>Most client briefs arrive pre-loaded with assumptions. Translate the prescriptive brief into an answerable cultural question.</p><div class="callout"><p><strong>Key takeaway:</strong> The most valuable thing you can do with a brief is reframe it before you answer it.</p></div>'},
+    {id:'b7',title:'Dashboards vs. Decks',time:'5 min',vis:null,body:'<h3>Default to dashboards</h3><p>A dashboard is a living view. A deck goes stale the moment it is sent. Default to dashboards \u2014 they create stickiness, demonstrate platform value, and scale.</p><div class="callout"><p><strong>Key takeaway:</strong> Every deck you build that should have been a dashboard is a missed stickiness opportunity.</p></div>'},
+    {id:'b8',title:'Our lingo: Winnin\u2019s terms and acronyms',time:'4 min',vis:null,body:'<h3>Key terms</h3><p><strong>SoA</strong> (Share of Attention), <strong>CE team</strong> (Customer Experience), <strong>NDR</strong> (Net Dollar Retention), <strong>Health Score</strong>, <strong>ZAI</strong> (Zeitgeist AI), <strong>Cultural Territory</strong>, <strong>Whitespace</strong> (high demand, low brand presence).</p><div class="callout"><p><strong>Key takeaway:</strong> Use the language consistently. It signals fluency and builds team cohesion.</p></div>'},
+    {id:'b9',title:'Measuring our Success',time:'5 min',vis:null,body:'<h3>Four lenses</h3><p><strong>Product adoption</strong>, <strong>Health Score</strong>, <strong>NDR</strong>, and <strong>Expansion</strong>. Adoption drives health. Health drives NDR. NDR drives expansion.</p><div class="callout"><p><strong>Key takeaway:</strong> Platform adoption is the leading indicator. If clients are not using the product, everything else is at risk.</p></div>'},
+    {id:'b10',title:'Summary \u2014 How we work',time:'3 min',vis:null,body:'<h3>Section recap</h3><p>Winnin is a platform business \u2014 scale is the operating principle. The methodology runs macro to micro. Briefs need reframing. Dashboards beat decks by default.</p><div class="callout"><p><strong>Before moving on:</strong> Make sure you can operate with the right defaults across all four areas.</p></div>'}
+  ]},
+  {id:2,num:'03',title:'Meet Winnin Intelligence',lessons:[
+    {id:'c1',title:'The four intelligence blocks',time:'6 min',vis:'<svg viewBox="0 0 640 90" style="width:100%;display:block;margin-bottom:1.25rem;border-radius:8px" xmlns="http://www.w3.org/2000/svg"><rect width="640" height="90" fill="rgba(127,119,221,0.06)" rx="8"/><text x="16" y="20" fill="rgba(240,239,248,0.3)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="600" letter-spacing="0.12em">THE FOUR INTELLIGENCE BLOCKS</text><rect x="16" y="30" width="135" height="44" rx="4" fill="rgba(127,119,221,0.14)" stroke="rgba(127,119,221,0.4)" stroke-width="0.6" style="animation:scaleIn 0.4s ease"/><text x="83" y="52" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">SHARE OF</text><text x="83" y="64" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">ATTENTION</text><rect x="163" y="30" width="135" height="44" rx="4" fill="rgba(127,119,221,0.11)" stroke="rgba(127,119,221,0.3)" stroke-width="0.6" style="animation:scaleIn 0.4s 0.15s ease;transform-origin:230px 52px"/><text x="230" y="52" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">BRAND</text><text x="230" y="64" text-anchor="middle" fill="#A09AF0" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">INTELLIGENCE</text><rect x="310" y="30" width="148" height="44" rx="4" fill="rgba(127,119,221,0.09)" stroke="rgba(127,119,221,0.25)" stroke-width="0.6" style="animation:scaleIn 0.4s 0.3s ease;transform-origin:384px 52px"/><text x="384" y="52" text-anchor="middle" fill="rgba(240,239,248,0.5)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">CATEGORY</text><text x="384" y="64" text-anchor="middle" fill="rgba(240,239,248,0.5)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">INTELLIGENCE</text><rect x="470" y="30" width="154" height="44" rx="4" fill="rgba(127,119,221,0.07)" stroke="rgba(127,119,221,0.2)" stroke-width="0.6" style="animation:scaleIn 0.4s 0.45s ease;transform-origin:547px 52px"/><text x="547" y="52" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">CULTURAL</text><text x="547" y="64" text-anchor="middle" fill="rgba(240,239,248,0.4)" font-family="'Century Gothic',AppleGothic,Futura,sans-serif" font-size="8" font-weight="700">INTELLIGENCE</text></svg>',
+     body:'<h3>The platform\'s core structure</h3><p><strong>Share of Attention</strong> \u2014 How is my brand performing against the competitive set?<br><strong>Brand Intelligence</strong> \u2014 How is my specific brand performing in content, engagement, and affinity?<br><strong>Category Intelligence</strong> \u2014 What is happening across my whole category?<br><strong>Cultural Intelligence</strong> \u2014 What cultural territories are most important to my audience?</p><div class="callout"><p><strong>Key takeaway:</strong> Four blocks, four questions. Know which block answers the client\'s specific need.</p></div>'},
+    {id:'c2',title:'Navigating the platform',time:'5 min',vis:null,body:'<h3>Orientation before execution</h3><p>Before running any analysis, orient yourself within the workspace. The platform is organized into: <strong>Brand</strong>, <strong>Culture</strong>, <strong>Insights</strong> tabs. ZAI is accessible from anywhere.</p><div class="callout"><p><strong>Key takeaway:</strong> Orient before you analyze. Home \u2192 calibration check \u2192 then navigate to the right block.</p></div>'},
+    {id:'c3',title:'Workspaces and Home',time:'5 min',vis:null,body:'<h3>What a workspace is</h3><p>A workspace is a configured environment for a specific client \u2014 defining the brand, competitive set, relevant topics, and time horizons. Everything in the platform is filtered through workspace settings.</p><div class="callout"><p><strong>Key takeaway:</strong> The workspace is the unit of client configuration. Home is the control panel.</p></div>'},
+    {id:'c4',title:'Workspace data calibration',time:'6 min',vis:null,body:'<h3>Why calibration matters</h3><p>If the competitive set is wrong, the Share of Attention data is wrong. If cultural topics are mis-scoped, territory analysis is misleading.</p><h3>What to check</h3><p>Verify the brand entity is correctly mapped, confirm the competitive set matches reality, check that custom topics are correctly scoped.</p><div class="callout"><p><strong>Key takeaway:</strong> Miscalibrated workspaces produce misleading data. Check calibration before every client-facing session.</p></div>'},
+    {id:'c5',title:'Brand Tab',time:'6 min',vis:null,body:'<h3>What the Brand Tab shows</h3><p>Brand Intelligence \u2014 a deep view of how a specific brand is performing. Covers content performance, creator data, audience affinity, and engagement trends.</p><div class="callout"><p><strong>Key takeaway:</strong> Brand Tab answers brand-specific performance questions.</p></div>'},
+    {id:'c6',title:'Culture Tab',time:'6 min',vis:null,body:'<h3>What the Culture Tab shows</h3><p>Category and Cultural Intelligence. Four sub-sections: <strong>Category</strong>, <strong>Topics</strong>, <strong>Videos</strong>, and <strong>Creators</strong>.</p><div class="callout"><p><strong>Key takeaway:</strong> Culture Tab answers the outside-in questions \u2014 what is the audience consuming, what is trending, who is leading the conversation.</p></div>'},
+    {id:'c7',title:'Custom Topic Creation',time:'5 min',vis:null,body:'<h3>When to create a custom topic</h3><p>Some client challenges require a more specific lens. Custom Topic Creation lets you define a territory combining keywords, creators, channels, and content signals.</p><div class="callout"><p><strong>Key takeaway:</strong> Custom topics are powerful but require calibration. Start broad, narrow with intention.</p></div>'},
+    {id:'c8',title:'Insights Tab',time:'5 min',vis:null,body:'<h3>What the Insights Tab contains</h3><p><strong>Dashboards</strong> (custom views for ongoing monitoring), <strong>Winnin Reports</strong> (structured analytical outputs), and <strong>Compare</strong> (side-by-side performance views).</p><div class="callout"><p><strong>Key takeaway:</strong> Insights Tab is the client-facing output layer. Dashboards should answer the client\'s core questions independently.</p></div>'},
+    {id:'c9',title:'Building a Dashboard',time:'7 min',vis:null,body:'<h3>Design for the question, not the data</h3><p>Start with the client\'s core questions and build a view that answers them directly. Structure around: here is where you stand \u2192 how that compares \u2192 what is changing \u2192 where the opportunity is.</p><div class="callout"><p><strong>Key takeaway:</strong> A dashboard that answers "how are we doing?" in under two minutes beats one that shows everything.</p></div>'},
+    {id:'c10',title:'ZAI \u2014 The Zeitgeist AI',time:'7 min',vis:null,body:'<h3>What ZAI is</h3><p>ZAI is Winnin\'s AI layer \u2014 a strategy copilot built on top of the platform\'s data. It surfaces patterns, synthesizes signals, and generates strategic recommendations.</p><h3>How to use it well</h3><p>Treat it as a thinking partner, not a search function. The quality of the output depends entirely on the quality of the question.</p><div class="callout"><p><strong>Key takeaway:</strong> ZAI is a strategy copilot. Use it for synthesis and recommendation generation \u2014 not just retrieval.</p></div>'},
+    {id:'c11',title:'Summary \u2014 Meet Winnin Intelligence',time:'3 min',vis:null,body:'<h3>Section recap</h3><p>Four intelligence blocks. Navigation logic: orient at Home \u2192 calibrate \u2192 navigate to the right block. ZAI is the strategy layer. Dashboards are the primary client-facing output.</p><div class="callout"><p><strong>Before the assessment:</strong> Make sure you can navigate the platform, explain each block, and describe how you would build a client dashboard from scratch.</p></div>'}
+  ]}
+];
+
+var QUIZ=[
+  {q:"What is the foundational concept that explains why brands keep spending more on media but losing cultural relevance?",opts:["Share of Attention decay","The Attention Economy","The Outside-in Paradox","Content saturation theory"],ans:1},
+  {q:"Winnin's core operational principle is that every process, deliverable, and client interaction should be oriented toward:",opts:["Maximizing deck output","Scale","Service excellence","Client satisfaction scores"],ans:1},
+  {q:"What is the correct analytical sequence in the Winnin Methodology?",opts:["Brand \u2192 Category \u2192 Culture","Culture \u2192 Category \u2192 Brand","Brief \u2192 Analysis \u2192 Deck","Metrics \u2192 Insights \u2192 Strategy"],ans:1},
+  {q:"When should you default to building a dashboard instead of a deck?",opts:["Only for enterprise clients","Whenever the client requests it","In almost all cases \u2014 dashboards scale and don\u2019t go stale","Only when platform access is confirmed"],ans:2},
+  {q:"What does it mean to 'reframe a brief' in the Winnin approach?",opts:["Reject it and start over","Translate a prescriptive request into an answerable cultural question","Simplify the deliverable scope","Present data without interpretation"],ans:1},
+  {q:"ZAI is best used as:",opts:["A search bar for platform data","A report generator","A strategy copilot for synthesis, patterns, and recommendations","An automated dashboard builder"],ans:2},
+  {q:"Which platform metric indicates how closely a cultural topic connects to a specific audience?",opts:["Views","E7","Affinity","Sentiment"],ans:2},
+  {q:"What is the most important first step when opening a new client workspace?",opts:["Run a Share of Attention analysis","Check calibration and orientation at Home","Build a custom topic","Create a dashboard immediately"],ans:1}
+];
+
+var completed={},curSec=null,curLes=null,qAnswers={},qSubmitted=false;
+
+function showTab(t){
+  ['overview','learn','questions','assessment'].forEach(function(n){
+    document.getElementById('tb-'+n).className='tab'+(n===t?' on':'');
+    document.getElementById('panel-'+n).className='panel'+(n===t?' on':'');
+  });
+}
+function goLearn(secIdx){
+  showTab('learn');
+  buildSyllabus();
+  setTimeout(function(){
+    var el=document.getElementById('sec-'+secIdx);
+    if(el){el.classList.add('open');el.scrollIntoView({behavior:'smooth',block:'start'});}
+  },60);
+}
+function updateProgress(){
+  var total=0;
+  SECTIONS.forEach(function(s){total+=s.lessons.length;});
+  var done=Object.keys(completed).filter(function(k){return completed[k];}).length;
+  var pct=total?Math.round(done/total*100):0;
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('pctLbl').textContent=pct+'%';
+  var ds=document.getElementById('doneStat');
+  if(ds) ds.textContent=done;
+}
+function buildSyllabus(){
+  var c=document.getElementById('syllabus');
+  if(!c) return;
+  var html='';
+  SECTIONS.forEach(function(s){
+    var isOpen=s.id===curSec;
+    html+='<div class="sec-card'+(isOpen?' open':'')+'" id="sec-'+s.id+'">';
+    html+='<div class="sec-hdr" onclick="toggleSec('+s.id+')">';
+    html+='<span class="sec-num">'+s.num+'</span><span class="sec-ttl">'+s.title+'</span>';
+    html+='<span class="sec-cnt">'+s.lessons.length+' lessons</span>';
+    html+='<i class="ti ti-chevron-down sec-chev"></i></div><div class="sec-body">';
+    s.lessons.forEach(function(l,li){
+      var isDone=completed[l.id],isActive=(curSec===s.id&&curLes===li);
+      html+='<div class="lesson'+(isActive?' on':'')+'" id="li-'+l.id+'" onclick="openLesson('+s.id+','+li+')">';
+      html+='<div class="chk'+(isDone?' done':'')+'">'+( isDone?'<i class="ti ti-check"></i>':'')+'</div>';
+      html+='<span class="lesson-name">'+l.title+'</span><span class="lesson-time">'+l.time+'</span></div>';
+    });
+    html+='</div></div>';
+  });
+  c.innerHTML=html;
+}
+function toggleSec(id){var el=document.getElementById('sec-'+id);if(el)el.classList.toggle('open');}
+function openLesson(sIdx,lIdx){
+  curSec=sIdx;curLes=lIdx;
+  var s=SECTIONS[sIdx],l=s.lessons[lIdx],isDone=completed[l.id];
+  var visHtml=l.vis?'<div class="lesson-visual">'+l.vis+'</div>':'';
+  document.getElementById('readerContent').innerHTML=
+    '<div class="reader-eyebrow">'+s.title+' \u00b7 Lesson '+(lIdx+1)+' of '+s.lessons.length+'</div>'+
+    '<h2>'+l.title+'</h2>'+visHtml+'<div class="reader-body">'+l.body+'</div>';
+  var btn=document.getElementById('btnComplete');
+  btn.textContent=isDone?'\u2713 Completed':'Mark complete';
+  btn.className='btn-primary'+(isDone?' btn-done':'');
+  document.getElementById('reader').style.display='block';
+  document.getElementById('syllabus').style.display='none';
+  buildSyllabus();
+}
+function backToSyllabus(){
+  document.getElementById('reader').style.display='none';
+  document.getElementById('syllabus').style.display='block';
+  buildSyllabus();
+}
+function markLesson(){
+  if(curSec===null||curLes===null) return;
+  var l=SECTIONS[curSec].lessons[curLes];
+  completed[l.id]=!completed[l.id];
+  var btn=document.getElementById('btnComplete');
+  btn.textContent=completed[l.id]?'\u2713 Completed':'Mark complete';
+  btn.className='btn-primary'+(completed[l.id]?' btn-done':'');
+  updateProgress();buildSyllabus();
+}
+function nextLesson(){
+  if(curSec===null||curLes===null) return;
+  var s=SECTIONS[curSec];
+  if(curLes<s.lessons.length-1){openLesson(curSec,curLes+1);}
+  else if(curSec<SECTIONS.length-1){openLesson(curSec+1,0);}
+  else{backToSyllabus();}
+}
+function buildQuiz(){
+  var c=document.getElementById('quizContainer');
+  if(!c) return;
+  var html='';
+  QUIZ.forEach(function(q,qi){
+    html+='<div class="quiz-q">';
+    if(VISUALS[qi]) html+='<div style="border-radius:10px 10px 0 0;overflow:hidden">'+VISUALS[qi]+'</div>';
+    html+='<div class="quiz-q-inner"><div class="quiz-q-text">'+(qi+1)+'. '+q.q+'</div><div class="opts">';
+    q.opts.forEach(function(o,oi){
+      html+='<div class="opt" id="qo-'+qi+'-'+oi+'" onclick="pickOpt('+qi+','+oi+')">';
+      html+='<span class="opt-k">'+['A','B','C','D'][oi]+'</span><span>'+o+'</span></div>';
+    });
+    html+='</div></div></div>';
+  });
+  html+='<button class="btn-submit" id="qSubmit" onclick="submitQuiz()" disabled>Submit assessment</button>';
+  c.innerHTML=html;
+  document.getElementById('quizResult').style.display='none';
+}
+function pickOpt(qi,oi){
+  if(qSubmitted) return;
+  qAnswers[qi]=oi;
+  QUIZ[qi].opts.forEach(function(_,i){
+    document.getElementById('qo-'+qi+'-'+i).className='opt'+(i===oi?' sel':'');
+  });
+  var btn=document.getElementById('qSubmit');
+  if(btn) btn.disabled=(Object.keys(qAnswers).length<QUIZ.length);
+}
+function submitQuiz(){
+  if(qSubmitted) return;
+  qSubmitted=true;
+  var score=0;
+  QUIZ.forEach(function(q,qi){
+    var chosen=qAnswers[qi];
+    q.opts.forEach(function(_,oi){
+      var el=document.getElementById('qo-'+qi+'-'+oi);
+      if(oi===q.ans){el.className='opt correct';}
+      else if(oi===chosen&&chosen!==q.ans){el.className='opt wrong';}
+    });
+    if(chosen===q.ans) score++;
+  });
+  var btn=document.getElementById('qSubmit');
+  if(btn) btn.style.display='none';
+  var pct=Math.round(score/QUIZ.length*100);
+  document.getElementById('resultScore').textContent=pct+'%';
+  document.getElementById('resultMsg').textContent=pct>=75
+    ?(score+' of '+QUIZ.length+' correct \u2014 solid foundations. You are ready for Level 01.')
+    :(score+' of '+QUIZ.length+' correct \u2014 review the highlighted sections and retake when ready.');
+  document.getElementById('quizResult').style.display='block';
+}
+function resetQuiz(){qAnswers={};qSubmitted=false;buildQuiz();}
+
+buildSyllabus();buildQuiz();updateProgress();
+</script>
+</body>
+</html>
